@@ -1,6 +1,7 @@
 ﻿using CET322Final.Data;
 using CET322Final.Models;
 using CET322Final.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,7 @@ public class EnrollmentsController : Controller
         _context = context;
     }
 
-    // GET: Ders atama formu
+    //  Ders atama formu
     public IActionResult Create()
     {
         var viewModel = new StudentEnrollmentViewModel
@@ -25,7 +26,7 @@ public class EnrollmentsController : Controller
         return View(viewModel);
     }
 
-    // POST: Ders atama işlemi
+    // Ders atama işlemi
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Create(StudentEnrollmentViewModel model)
@@ -44,14 +45,14 @@ public class EnrollmentsController : Controller
             return RedirectToAction("Index", "Students");
         }
 
-        // Hatalıysa dropdownları tekrar doldur
+        // Hatalıysa 
         model.Students = _context.Students.ToList();
         model.Courses = _context.Courses.ToList();
 
         return View(model);
     }
 
-    // GET: Not Güncelleme Sayfası
+    //Not Güncelleme Sayfası
     public IActionResult Edit(int id)
     {
         var enrollment = _context.Enrollments
@@ -64,8 +65,9 @@ public class EnrollmentsController : Controller
 
         return View(enrollment);
     }
-    // POST: Not Güncelleme İşlemi
+    //Not Güncelleme İşlemi
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     [ValidateAntiForgeryToken]
     public IActionResult Edit(int id, decimal? grade)
     {
@@ -86,7 +88,7 @@ public class EnrollmentsController : Controller
         }
     }
 
-    // GET: Dersten çıkarma onay formu
+    //Dersten çıkarma 
     public IActionResult Delete(int id)
     {
         var enrollment = _context.Enrollments
@@ -99,7 +101,7 @@ public class EnrollmentsController : Controller
         return View(enrollment);
     }
 
-    // POST: Dersten çıkarma işlemi
+    //Dersten çıkarma işlemi
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public IActionResult DeleteConfirmed(int id)
