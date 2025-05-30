@@ -1,0 +1,44 @@
+﻿@model Student
+
+<h2>Öğrenci Detayı</h2>
+
+<p><strong>Ad Soyad:</strong> @Model.FullName</p>
+<p><strong>Kayıt Tarihi:</strong> @Model.EnrollmentDate.ToShortDateString()</p>
+
+<h3>Aldığı Dersler</h3>
+
+@{
+    var enrollments = ViewBag.Enrollments as List<Enrollment> ?? new List<Enrollment>();
+}
+
+@if (!enrollments.Any())
+{
+    <p>Bu öğrenci henüz hiçbir derse kayıtlı değil.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ders Adı</th>
+                <th>Not</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in enrollments)
+            {
+                <tr>
+                    <td>@e.Course?.Title</td>
+                    <td>@(e.Grade.HasValue? e.Grade.Value.ToString("0.##") : "Henüz not yok")</td>
+                    <td>
+                        <a href="/Enrollments/Edit/@e.Id" class="btn btn-sm btn-outline-secondary">Notu Güncelle</a>
+                        <a href="/Enrollments/Delete/@e.Id" class="btn btn-sm btn-outline-danger">Dersten Çıkar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<!-- Detay butonuna tıklandığı zaman açılan bölüm, öğrenci hangi derslere kayıtlı notu ve dersten çıkarma ve güncelleme bölümü bulunuyor-->

@@ -1,0 +1,16 @@
+﻿@model CET322Final.Models.Enrollment
+
+<h2>Dersten Çıkarma</h2>
+
+<p>Öğrenciyi bu dersten çıkarmak istediğinize emin misiniz?</p>
+
+<div>
+    <strong>@Model.Student.FullName</strong> → <strong>@Model.Course.Title</strong>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Çıkar</button>
+    <a asp-action="Details" asp-controller="Students" asp-route-id="@Model.StudentId" class="btn btn-secondary">İptal</a>
+</form>
+<!-- Öğrenciyi dersten çıkarma bölümü -->

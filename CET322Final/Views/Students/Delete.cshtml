@@ -1,0 +1,21 @@
+﻿@model Student
+
+@{
+    ViewData["Title"] = "Öğrenci Sil";
+}
+
+<h2>Öğrenci Sil</h2>
+
+<h4>Bu öğrenciyi silmek istediğinize emin misiniz?</h4>
+
+<div>
+    <p><strong>Ad Soyad:</strong> @Model.FullName</p>
+    <p><strong>Kayıt Tarihi:</strong> @Model.EnrollmentDate.ToShortDateString()</p>
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Evet, Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
+<!-- Öğrenciyi silme bölümü doğrudan -->

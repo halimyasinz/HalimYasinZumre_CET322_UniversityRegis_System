@@ -1,0 +1,18 @@
+﻿@model CET322Final.Models.Course
+
+<h2>Dersi Sil</h2>
+
+<p>Bu dersi silmek istediğinize emin misiniz?</p>
+
+<div>
+    <strong>@Model.Title</strong> - @Model.Credits Kredi
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Sil</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>
+
+
+<!--Dersi Sil-->

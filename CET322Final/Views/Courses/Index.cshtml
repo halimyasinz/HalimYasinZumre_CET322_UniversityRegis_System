@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Course>
+
+@{
+    ViewData["Title"] = "Ders Listesi";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a href="/Courses/Create" class="btn btn-primary">Yeni Kurs Ekle</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Ders Adı</th>
+            <th>Kredi</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in Model)
+        {
+            <tr>
+                <td>@course.Title</td>
+                <td>@course.Credits</td>
+                <td>
+                    <a class="btn btn-info btn-sm" href="/Courses/Details/@course.Id">Detay</a>
+                    <a class="btn btn-warning btn-sm" href="/Courses/Edit/@course.Id">Düzenle</a>
+                    <a class="btn btn-danger btn-sm" href="/Courses/Delete/@course.Id">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<!-- Kurslar anasayfası -->

@@ -1,0 +1,20 @@
+﻿@model CET322Final.Models.Enrollment
+
+<h2>Not Güncelle</h2>
+
+<p><strong>Öğrenci:</strong> @Model.Student?.FullName</p>
+<p><strong>Ders:</strong> @Model.Course?.Title</p>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+
+    <div class="form-group">
+        <label>Not</label>
+        <input name="grade" class="form-control" type="number" step="any" value="@(Model.Grade ?? 0)" />
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary">Güncelle</button>
+    <a asp-controller="Students" asp-action="Details" asp-route-id="@Model.StudentId" class="btn btn-secondary">Geri</a>
+</form>
+<!-- Öğrenci detay bölümünden not güncelleye tıklanınca notunun güncellenebilmesi için açılan arayüz-->
